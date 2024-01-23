@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/_post.css">
+<link rel="stylesheet" href="/css/_answer.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<h1 id="profile-heading">Profile page</h1>
+<div id="login-user-profile">
+
+<img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>" width="100">
+<p><strong><%= profile_user.name%></strong></p>
+<%if(locals.user.id==profile_user.id) {%>
+    <div id="update-user">
+    <form action="/users/update/<%=profile_user.id%>" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col">
+              <input type="text" name="name" class="form-control" placeholder="Your name" aria-label="Your name" value="<%=profile_user.name%>" required>
+            </div>
+            <div class="col">
+              <input type="text" name="email" class="form-control" placeholder="Your email" aria-label="Your email" value="<%=profile_user.email%>" required>
+            </div>
+          </div>
+        <div id="update-profile-picture" class="col">
+            <input type="file" name="avatar" id="" placeholder="Profile Picture" class="form-control">
+        </div>
+        <div>
+            <input type="Submit" name="" id="" value="Update" class="btn btn-outline-primary">
+        </div>
+        
+    </form>
+    </div>
+
+<%}else {%>
+    <p><%= profile_user.email%></p>
+    <form action="/friend/create-friend" method="post">
+        <input type="hidden" name="userId" id="" value="<%=profile_user._id%>">
+        <button id="btn" type="submit" class="btn btn-outline-primary"><%if(locals.user.friendships.includes(profile_user._id)) {%>
+            Remove Friend
+            <%}else {%>
+            
+                Add Friend
+                <%}%>
+        </button>
+    </form>
+<%}%>
+<p>Following <%=profile_user.friendships.length%> people on Quora</p> 
+</div>
+<div id="profile_user">
+    <%if(locals.user.id!=profile_user.id) {%>
+        <div id="add-post">
+        <form action="/posts/create-user-profile" id="new-post-form" method="post">
+            <h4>POST</h4>
+            <div class="form-floating">
+                <textarea name="content" cols="20" class="form-control" placeholder="Ask anything" id="floatingTextarea2" style="height: 100px" required></textarea>
+                <label for="floatingTextarea2">Ask anything...</label>
+                <input type="hidden" name="profile_user" value="<%=profile_user._id%>">
+              </div>
+              <button type="submit" class="btn btn-outline-info">submit</button>
+        </form>
+        </div>
+    <%}%>
+    <div id="all-post-ans-comment">
+    <ul>
+    <h4>Ask questions to <strong><%=profile_user.name%></strong></h4>
+    <%for(post of allPost) {%>
+        <%- include('_post_profile')-%>
+        
+    <% } %>
+    </ul>
+    </div>
+</div>
+

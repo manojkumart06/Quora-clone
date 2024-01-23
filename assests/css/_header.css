@@ -1,0 +1,59 @@
+
+.container-fliud{
+    display: flex;
+    flex-direction: row;
+}
+.nav-bar{
+     background-image: linear-gradient(to right,rgb(55, 96, 194),skyblue);
+  }
+  
+
+.nav-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    
+}
+.navbar-brand{
+    font-size:xx-large;
+    font-family:sans-serif;
+}
+  
+.nav-list >  li {
+    float: left;
+  }
+
+
+a{ 
+    display: block;
+    padding: 10px 30px;
+}
+
+
+#home-icon{
+    color: black;
+}
+
+#name-tag{
+    display: block;
+    padding: 10px 30px;
+    font-size: large;
+    font-weight:500;
+    padding-top: 10px;
+}
+.sign-in-out-tag{
+    font-size: large;
+    color:black ;
+  /*  border: 1px solid rgb(56, 37, 94);*/
+}
+.sign-in-out-tag:hover{
+    background-color: rgb(56, 37, 94);
+    color: aliceblue;
+}
+
+.sign-in-out{
+    padding-left: 25px;
+}

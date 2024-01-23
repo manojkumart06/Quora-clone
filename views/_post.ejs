@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="/css/_post.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<div id="post-ans-comment">
+    <span style="font-size: smaller;margin: 3%;"><strong>Question.</strong></span>
+
+<li id="post-<%=post._id%>">
+    <div id="all-post">
+    <div id="del-post">
+    
+    <p id="post-content"><%=post.content%></p>
+    <% if(locals.user && locals.user.id==post.user.id) {%>
+        <small>
+            <a class="delete-post-button" href="/posts/delete/<%=post._id%>">
+                <i class="fa-solid fa-trash"></i>
+            </a>
+        </small>
+    <%}%>
+    </div>
+    <div id="post-like-dislike">
+    <form action="/likes/create-post-like" method="post">
+        <input type="hidden" name="post" value="<%= post._id %>">
+        <button type="submit" class="fabutton">
+            <i class="fa-regular fa-thumbs-up"></i>
+        </button>
+        <span style="color: black;"><%=post.likes.length%></span>
+    </form>
+
+    <form action="/dislikes/create-post-dislike" method="post">
+        <input type="hidden" name="post" value="<%= post._id %>">
+        <button type="submit" class="fabutton">
+        <i class="fa-regular fa-thumbs-down"></i>
+        </button>
+        <span style="color: black;"><%=post.disLikes.length%></span>
+    </form>
+    <p id="post-name"><%=post.user.name%></p>
+    </div>
+    
+</div>
+    <br>
+    
+        <div id="type-answer">
+        <%if(locals.user) {%>
+            <form  action="/answers/create" method="post">
+                <div class="input-group">
+                <input type="text" name="content" class="form-control" placeholder="Type Answer..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                <!--value will pass the post id which will be used in action when form is submitted-->
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Submit</button>
+            </div>
+            </form>
+        
+        <%}%>
+        </div>
+        <div id="all-answer-comments">
+            <%if(post.answers.length>0) {%>
+                <h5>All Answers</h5>
+            <%} else {%>
+                <h5>No Answers</h5>
+            <%}%>
+            <ul id="post-answer-<%=post._id%>">
+                <%for(answer of post.answers) {%>
+                    <%-include('_answer')-%>
+                <%}%>    
+            </ul>
+            
+    </div>
+    
+</li>
+</div>

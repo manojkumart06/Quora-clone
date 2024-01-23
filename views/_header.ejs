@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="/css/_header.css">
+
+
+<header>
+    <nav class="navbar fixed-top navbar-light bg-light nav-bar">
+        <div class="container-fluid">
+        <div>
+          <a class="navbar-brand" href="#">
+            <!--<i class="fa-brands fa-quora"></i>-->
+            Quora
+          </a>
+        </div>
+          <div>
+          <ul class="nav-list">
+            <%if (locals.user) {%>
+                <li id="home-icon-placing">
+                    <a href="/">
+                     <span id="home-icon"><i class="fa-solid fa-house-user fa-2x"></i></span>
+                      </a>
+                </li>
+                <li ><span id="name-tag"><%=user.name%></span></li>
+                <li>
+                    <a class="btn btn-sm btn-outline-secondary" href="/users/sign-out"><span class="sign-in-out-tag">sign out</span></a>
+                </li>
+            <%}else{%>
+                <li class="sign-in-out">
+                    <a  class="btn btn-sm btn-outline-secondary" href="/users/sign-in"><span class="sign-in-out-tag">sign in</span></a>
+                </li>
+                <li class="sign-in-out">
+                    <a class="btn btn-sm btn-outline-secondary" href="/users/sign-up"><span class="sign-in-out-tag">sign up</span></a>
+                </li>
+            <%}%>
+            
+          </ul>
+          </div>
+        </div>
+        
+      </nav>
+   
+</header>

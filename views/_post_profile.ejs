@@ -1,0 +1,143 @@
+<link rel="stylesheet" href="/css/_post_profile.css">
+
+<div id="post-ans-comment">
+    <span style="font-size: smaller;margin: 3%;"><strong>Question.</strong></span>
+<li>
+    <div id="all-post-profile">
+    <div id="del-post-profile">
+        <div id="profile-content">
+            <p><%=post.content%></p>
+        </div>
+    <% if(locals.user && locals.user.id==post.user.id) {%>
+        <small>
+            <a class="delete-post-button" href="/posts/delete/<%=post._id%>"><i class="fa-solid fa-trash"></i></a>
+        </small>
+    <%}%>
+    </div>
+    
+    <%if( profile_user.id==locals.user.id && profile_user.id==post.user_profile) {%>
+        <div id="post-like-dislike-profile">
+        <form action="/likes/create-post-like" method="post">
+            <input type="hidden" name="post" value="<%= post._id %>">
+            <button type="submit" class="fabutton">
+                <i class="fa-regular fa-thumbs-up"></i>
+            </button>
+        
+        <span><%=post.likes.length%></span>
+        </form>
+        <form action="/dislikes/create-post-dislike" method="post">
+            <input type="hidden" name="post" value="<%= post._id %>">
+            <button type="submit" class="fabutton">
+            <i class="fa-regular fa-thumbs-down"></i>
+            </button>
+        <span><%=post.disLikes.length%></span>
+        </form>
+        <p><%=post.user.name%></p>
+        </div>
+        <div id="type-answer">
+        <form  action="/answers/create" method="post">
+            <div class="input-group">
+                <input type="text" name="content" class="form-control" id="" placeholder="Type Answer" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                <!--value will pass the post id which will be used in action when form is submitted-->
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Submit</button>
+            </div>
+        </form>
+        </div>
+        <div id="all-answer-comments">
+            <ul>
+                <%for(answer of post.answers) {%>
+                    <div id="answer-block-profile">
+                        <span style="font-size: smaller;margin-left: 3%;"><strong>Answer.</strong></span>
+                    <li>
+                        <div id="for-answer-border">
+                        <div id="del-answer"> 
+                        <p id="answer-content"><%=answer.content%></p>  
+                        <%if(locals.user && answer.user.id==locals.user.id) {%>
+                            <a href="/answers/delete/<%=answer._id %>"><i class="fa-solid fa-trash"></i></a>
+                            
+                        <% } %>
+                        </div>
+                        <div id="answer-like-dislike">
+                        <form action="/likes/create-answer-like" method="post">
+                            <input type="hidden" name="answer" value="<%= answer._id %>">
+                            <button type="submit" class="fabutton">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                            </button>
+                            <span><%=answer.likes.length%></span>
+                        </form>
+                        <form action="/dislikes/create-answer-dislike" method="post">
+                            <input type="hidden" name="answer" value="<%= answer._id %>">
+                            <button type="submit" class="fabutton">
+                            <i class="fa-regular fa-thumbs-down"></i>
+                            </button>
+                            <span><%=answer.disLikes.length%></span>
+                        </form>
+                        <p><%=answer.user.name%></p>
+                    </div>
+                        </div>    
+                    </li>
+                    </div>
+                <%}%>
+                </ul>
+        </div>
+            
+        <!--**********************************************-->
+        <%}else if(profile_user.id==post.user_profile ) {%> 
+        
+        <div id="post-like-dislike-profile">
+        <form action="/likes/create-post-like" method="post">
+            <input type="hidden" name="post" value="<%= post._id %>">
+            <button type="submit" class="fabutton">
+                <i class="fa-regular fa-thumbs-up"></i>
+            </button>
+        <span><%=post.likes.length%></span>
+        </form>
+        <form action="/dislikes/create-post-dislike" method="post">
+            <input type="hidden" name="post" value="<%= post._id %>">
+            <button type="submit" class="fabutton">
+            <i class="fa-regular fa-thumbs-down"></i>
+            </button>
+        <span><%=post.disLikes.length%></span>
+        </form>
+        <span id="profile-post-name"><%=post.user.name%></span>
+        </div>
+    </div>
+        <div id="all-answer-comments">
+        <ul>
+            <%for(answer of post.answers) {%>
+                <div id="answer-block">
+                    <span style="font-size: smaller;margin-left: 3%;color: black;"><strong>Answer.</strong></span>
+                <li>
+                    <div id="for-answer-border">
+                    <div id="del-answer">
+                        <p id="answer-content"><%=answer.content%></p>
+                    </div>
+                    <div id="answer-like-dislike">
+                    <form action="/likes/create-answer-like" method="post">
+                        <input type="hidden" name="answer" value="<%= answer._id %>">
+                        <button type="submit" class="fabutton">
+                            <i class="fa-regular fa-thumbs-up"></i>
+                        </button>
+                        <span><%=answer.likes.length%></span>
+                    </form>
+                    <form action="/dislikes/create-answer-dislike" method="post">
+                        <input type="hidden" name="answer" value="<%= answer._id %>">
+                        <button type="submit" class="fabutton">
+                        <i class="fa-regular fa-thumbs-down"></i>
+                        </button>
+                        <span><%=answer.disLikes.length%></span>
+                    </form>
+                    <p><%=answer.user.name%></p>
+                    </div>
+                    </div> 
+                </li>
+                </div>
+            <%}%>
+        </ul>
+        </div>
+        <%}%>
+</li>
+
+</div>
+

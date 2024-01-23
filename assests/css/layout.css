@@ -1,0 +1,43 @@
+body{
+   /* background-image: linear-gradient(to right,rgb(141, 41, 41), rgb(233, 160, 160));*/
+}
+
+#sign-up-page{
+    width: 40vw;
+    height: auto;
+    margin-top: 5%;
+    margin-left: 20%;
+}
+
+#sign-up-btn{
+    height: 40px;
+    width: 70px;
+}
+
+#login-page{
+    width: 40vw;
+    height: auto;
+    margin-top: 5%;
+    margin-left: 20%;
+}
+/*#layout-main{
+    
+
+    justify-content: space-between;
+    height: auto;
+
+}*/
+.fabutton {
+    background: none;
+    padding: 0px;
+    border: none;
+  }
+#heading{
+    padding-top: 80px;
+    text-align: center;
+    color: rgb(11, 11, 128);
+    font-size: 3rem;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;;
+    font-weight:bolder;
+}
+

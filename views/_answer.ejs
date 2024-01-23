@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="/css/_answer.css">
+<div id="answer-block">
+    <span style="font-size: smaller;margin-left: 3%;color: black;"><strong>Answer.</strong></span>
+<li>
+    <div id="for-answer-border">
+    <div id="del-answer">
+    <p id="answer-content"><%= answer.content %></p>
+    <%if(locals.user && answer.user.id==locals.user.id) {%>
+        <a href="/answers/delete/<%=answer._id %>"><i class="fa-solid fa-trash"></i></a>
+    <% } %>
+    </div>
+<div id="answer-like-dislike">
+<form action="/likes/create-answer-like" method="post">
+    <input type="hidden" name="answer" value="<%= answer._id %>">
+    <button type="submit" class="fabutton">
+        <i class="fa-regular fa-thumbs-up"></i>
+    </button>
+    <span style="color: black;"><%=answer.likes.length%></span>
+</form>
+<form action="/dislikes/create-answer-dislike" method="post">
+    <input type="hidden" name="answer" value="<%= answer._id %>">
+    <button type="submit" class="fabutton">
+    <i class="fa-regular fa-thumbs-down"></i>
+    </button>
+    <span style="color: black;"><%=answer.disLikes.length%></span>
+</form>
+<p style="color: black;"><%= answer.user.name %></p>
+</div>
+</div>
+
+
+    
+    <div id="type-comment">
+    <%if(locals.user) {%>
+        <form  action="/comments/create" method="post">
+            <div class="input-group">
+                <input type="text" name="content" class="form-control" placeholder="Type Comment..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                <!--value will pass the post id which will be used in action when form is submitted-->
+                <input type="hidden" name="answer" value="<%= answer._id %>">
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Submit</button>
+            </div>
+        </form>
+        <%}%>
+    </div>
+    <div id="all-comment">
+    <%if(answer.comments.length>0) {%>
+        <h5>All Comments</h5>
+    <%}else {%>
+        <h5>No comments</h5>
+    <%}%>
+        <ul>
+        <% for(comment of answer.comments) {%>
+            <li>
+                <div id="for-comment-bg">
+                <div id="del-comment">
+                <p id="comment-content"><%= comment.content %></p>
+                <%if(locals.user && comment.user.id==locals.user.id) {%>
+                    <a href="/comments/delete/<%=comment._id %>"><i class="fa-solid fa-trash"></i></a>
+                    
+                <% } %>
+                </div>
+                <div id="comment-like">
+                <form action="/likes/create-comment-like" method="post">
+                    <input type="hidden" name="comment" value="<%= comment._id %>">
+                    <button type="submit" class="fabutton">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                    </button>
+                    <span style="color: black;"><%=comment.likes.length%></span>
+                </form>
+                <p style="color: black;"><%=comment.user.name%></p>
+                </div>
+                </div>
+                
+        </li>
+        <%}%>
+    </ul>
+</div>
+    
+</li>
+</div>

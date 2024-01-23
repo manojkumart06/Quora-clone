@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/chat_box.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<h2 id="heading">QUORA</h2>
+<div id="main-box">
+    <div id="all-users">    
+    <h3>All Users</h3>
+        <div id="user-list">
+        <ul>
+        <%for(let user of all_users) {%>
+            <li>
+                <a href="/users/profile/<%=user.id%>"><%=user.name%></a>
+            </li>
+            <% } %>
+        </ul>
+        </div>
+    </div>
+
+
+    <div id="post"> 
+    <div id="for-bottom-border">
+    <div id="add-post"> 
+    <%if(locals.user) {%>
+        
+        <form action="/posts/create" id="new-post-form" method="post">        
+            <div class="form-floating">
+                <textarea name="content" cols="20" class="form-control" placeholder="Ask anything" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Ask anything...</label>
+              </div>
+              <button type="submit" class="btn btn-outline-info">submit</button>
+
+        </form>
+        <% } %>
+    </div>
+    </div>
+        <div id="all-post-ans-comment">
+        <ul>
+            <h3 id="post-heading">All Post</h3>
+            <%for(post of all_post) {%>
+                <%- include('_post')-%>
+            <% } %>
+        </ul>
+        </div>
+    </div>
+
+    <div id="friends-chatbox">
+        <%if(locals.user) {%>
+    <div id="all-friends">
+        
+                <h3>Following</h3>
+                    <!--sendReq has friendships populated in it-->
+                    <%for (allFriends of sendReq.friendships) {%>
+                    <ul>       
+                        <li>
+                            <div id="name-remove">
+                            <a href="/users/profile/<%=allFriends.id %>"><%= allFriends.name%></a>
+                            <!--it will go to the friends controller to delete the friend-->
+                            <form action="/friend/create-friend" method="post" id="del-btn">
+                                <input type="hidden" name="userId" value="<%=allFriends._id%>">
+                                <button type="submit" class="fabutton">
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                </button>
+                            </form>
+                        </div>
+                        </li>
+                    </ul>
+                    <%}%>
+                </div> 
+            <%}%>
+
+
+    <div id="chat-box">
+        
+    </div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+<script src="/js/chat_engine.js"></script>
+
+<%if(locals.user) {%>
+    
+<script>
+    new ChatEngine("user-chat-box","<%=locals.user.email%>")
+</script>
+<%}%>
